@@ -119,10 +119,13 @@ public class NutritionFacts {
 	}
 
 }
+```
 
-// 클라이언트에서 사용하는 모습
+클라이언트 측 사용 예시
+
+```java
 NutritionFacts cocaCola = new NutritionFacts.Builder(240, 8)
-														.calories(100).sodium(35).carbohydrate(27).build();
+                  .calories(100).sodium(35).carbohydrate(27).build();
 ```
 
 **빌더의 세터 메서드들은 빌더 자신을 반환하기 때문에 연쇄적으로 호출 할 수 있다.** 이런 방식을 메서드 호출이 흐르듯 연결된다는 뜻으로 `플루언트 API(fluent API)` 혹은 `메서드 연쇄(method chaining)`라 한다.
@@ -192,10 +195,11 @@ public class NyPizza extends Pizza {
 		size = builder.size;
 	}
 }
+```
 
-// 클라이언트측 코드 예
+```java
 NyPizza pizza = new NyPizza.Builder(SMALL)
-									.addTopping(SAUSAGE).addTopping(ONION).build();
+                  .addTopping(SAUSAGE).addTopping(ONION).build();
 ```
 
 하위 클래스의 메서드가 상위 클래스의 메서드가 정의한 반환 타입이 아닌, 그 하위 타입을 반환하는 기능을 `공변 반환 타이핑(covariant return typing)`이라 한다. 이 기능을 이용하면 클라이언트가 형변환에 신경쓰지 않고도 빌더를 사용할 수 있다.
