@@ -29,7 +29,7 @@ public class NutritionFacts {
 	// ... 생략
 
 	public NutritionFacts(int servingSize, int servings, int calories,
-												int fat, int sodium, int carbohydreate) {
+                          int fat, int sodium, int carbohydreate) {
 		this.servingSize = servingSize;
 		this.servings = servings;
 		this.calories = calories;
