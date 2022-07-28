@@ -21,7 +21,7 @@
 
 ```python
 class TreeNode:
-    def _init_(self, val, left=None, right=None):
+    def __init__(self, val, left=None, right=None):
       self.value = val
       self.leftChild = left
       self.rightChild = right
@@ -65,7 +65,8 @@ root = TreeNode(50, node1, node2)
 - 삭제할 노드에 자식이 없으면 그냥 삭제한다.
 - 삭제할 노드에 자식이 하나면 노드를 삭제하고, 그 자식을 삭제된 노드가 있던 위치에 넣는다.
 - 자식이 둘인 노드를 삭제할 때는 삭제된 노드를 후속자(successor)노드로 대체한다.
-  > 후속자 노드란 삭제된 노드보다 큰 값 중 최솟값을 같는 자식 노드다. (방금 삭제한 노드의 자식 노드들을 오름차순 정렬했을 때 방금 삭제한 노드 다음으로 큰 수)
+
+> 후속자 노드란 삭제된 노드보다 큰 값 중 최솟값을 같는 자식 노드다. (방금 삭제한 노드의 자식 노드들을 오름차순 정렬했을 때 방금 삭제한 노드 다음으로 큰 수)
 
 ### 후속자 노드 찾기
 
