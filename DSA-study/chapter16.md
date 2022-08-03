@@ -61,3 +61,67 @@
   - 어떤 노드의 왼쪽 자식을 찾으려면 `(index * 2) + 1` 공식을 사용한다.
   - 어떤 노드의 오른쪽 자식을 찾으려면 `(index * 2) + 2` 공식을 사용한다.
   - 어떤 노드의 부모를 찾으려면 `(index - 1) / 2` 공식을 사용한다. (소숫점 이하는 버린다.)
+
+---
+
+# 우선순위 큐 관련 문제 풀어보기
+
+스터디 내용 복습을 위해 우선순위 큐와 관련된 문제를 풀어보기로 한다.
+
+## 문제
+
+- [이중우선순위 큐](https://school.programmers.co.kr/learn/courses/30/lessons/42628)
+
+### 문제 파악
+
+이중 우선순위 큐는 숫자를 삽입하고, 최댓값 혹은 최솟값을 삭제하는 연산을 할 수 있는 자료구조다. 연산이 담긴 `operations`매개변수가 주어지고, 모든 연산을 처리한 후 큐가 비어있으면 `[0, 0]`을, 비어있지 않으면 `[최댓값, 최솟값]`을 반환하라.
+
+### 제한사항
+
+- `I`로 시작하는 연산은 큐에 값을 삽입한다.
+- `D`로 시작하는 연산은 값을 삭제한다.
+  - `D 1`은 최댓값을 삭제한다.
+  - `D -1`은 최솟값을 삭제한다.
+- 빈 큐에 데이터를 삭제하라는 연산이 주어지면 무시한다.
+
+## 계획
+
+우선 순위 큐는 힙 또는 정렬된 배열로 구현할 수 있다. 최댓값과 최솟값을 알려면 정렬된 배열을 사용하는 것이 좋겠다. 정렬된 배열의 첫 번째 값은 최솟값이 되고, 마지막 값은 최댓값이 된다.
+
+1. `operations`배열을 반복문으로 돌면서 맨 앞 글자를 통해 어떤 연산인지 구분한다.
+2. 삽입 연산의 경우 그냥 삽입한다.
+3. 삭제 연산의 경우, 삭제 전 배열을 정렬한다.
+   3-1. 최솟값을 삭제하는 경우 배열의 첫 번째 값을 삭제한다.
+   3-2. 최댓값을 삭제하는 경우 배열의 마지막 값을 삭제한다.
+4. 배열이 비어있으면 `[0, 0]`을, 비어있지 않으면 `[배열의 마지막 값, 배열의 첫 번째 값]`을 반환한다.
+
+## 실행
+
+```java
+public int[] solution(String[] operations) {
+    List<Integer> list = new ArrayList<>();
+    int[] arr = new int[2];
+    int[] answer = {};
+
+    for (String command : operations) {
+        if ('I' == command.charAt(0)) {
+            int insertValue = Integer.parseInt(command.substring(2));
+            list.add(insertValue);
+        } else {
+            list.sort(Integer::compareTo);
+            int deleteCommand = Integer.parseInt(command.substring(2));
+
+            if (list.isEmpty()) {
+                continue;
+            }
+            if (deleteCommand > 0) {
+                list.remove(list.get(list.size() - 1));
+            } else {
+                list.remove(list.get(0));
+            }
+        }
+    }
+    list.sort(Integer::compareTo);
+    return list.isEmpty() ? new int[]{0, 0} : new int[]{list.get(list.size() - 1), list.get(0)};
+}
+```
