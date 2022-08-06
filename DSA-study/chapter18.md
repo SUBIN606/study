@@ -28,6 +28,84 @@ friends = {
 }
 ```
 
+> java로 구현해본 코드
+
+```java
+public class Graph {
+
+    private Map<Vertex<Object>, List<Vertex>> graph;
+
+    public Graph() {
+        this.graph = new HashMap<>();
+    }
+
+    // 정점(vertex)을 추가한다
+    public void addVertex(Object value) {
+        this.graph.putIfAbsent(new Vertex<>(value), new ArrayList<>());
+    }
+
+    // 정점을 제거한다
+    public void removeVertex(Object value) {
+        Vertex<Object> vertexToRemove = new Vertex<>(value);
+        this.graph.remove(vertexToRemove);
+        this.graph.values().forEach(entry -> entry.remove(vertexToRemove));
+    }
+
+    // 간선(edge)를 추가한다 == 정점과 정점을 연결한다
+    public void addEdge(Object value1, Object value2) {
+        Vertex<Object> vertex1 = new Vertex<>(value1);
+        Vertex<Object> vertex2 = new Vertex<>(value2);
+
+        this.graph.get(vertex1).add(vertex2);
+        this.graph.get(vertex2).add(vertex1);
+    }
+
+    // 간선을 제거한다 == 정점의 정점의 연결을 해제한다
+    public void removeEdge(Object value1, Object value2) {
+        Vertex<Object> vertex1 = new Vertex<>(value1);
+        Vertex<Object> vertex2 = new Vertex<>(value2);
+
+        this.graph.get(vertex1).remove(vertex2);
+        this.graph.get(vertex2).remove(vertex1);
+    }
+
+    // 정점과 연결된 정점들을 반환한다
+    public List<Vertex> getNeighbors(Object value) {
+        return this.graph.get(new Vertex<>(value));
+    }
+
+    @Override
+    public String toString() {
+        return "Graph{" +
+                "adjacentVertexes=" + graph +
+                '}';
+    }
+
+    // 정점
+    public static class Vertex<T extends Object> {
+        Object value;
+
+        public Vertex(Object value) {
+            this.value = value;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Vertex<?> vertex = (Vertex<?>) o;
+            return Objects.equals(value, vertex.value);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(value);
+        }
+
+    }
+}
+```
+
 ## 18.2 방향 그래프
 
 - 방향 그래프란?
@@ -74,7 +152,7 @@ friends = {
 6. 현재 정점의 인접 정점을 순회한다.
 7. 이미 방문한 인접 정점이면 무시한다.
 8. 아직 방문하지 않은 인접 정점이면 해시 테이블에 추가해 방문했다고 표시한 후 큐에 추가한다.
-9. 큐가 빌 떄까지 루프를 반복한다.
+9. 큐가 빌 때까지 루프를 반복한다.
 
 > 그래프를 탐색하는 동안 시작 정점 가까이 있고 싶으면 너비 우선 탐색이 좋고, 빨리 멀어져야 한다면 깊이 우선 탐색이 이상적이다.
 
@@ -87,7 +165,7 @@ friends = {
   - V는 정점(vertex)을 뜻하며 그래프 내 정점의 개수를 나타낸다.
   - E는 간선(edge)을 뜻하며 그래프 내 간선의 개수를 나타낸다.
   - 그래프 내 정점 수에 그래프 내 간선 수를 더한 값이 곧 단계 수가 된다.
-  - 그래프 내 정점을 모두 순회해야 하고, 정점의 인접 정점까지 모두 순회하기 떄문이다.
+  - 그래프 내 정점을 모두 순회해야 하고, 정점의 인접 정점까지 모두 순회하기 때문이다.
 
 ## 18.8 가중 그래프
 
