@@ -136,7 +136,36 @@ public class Graph {
 4. 방문했던 인접 정점이면 무시한다.
 5. 방문하지 않았던 인접 정점이면 그 정점에 대해 재귀적으로 깊이 우선 탐색을 수행한다.
 
-> TODO: 코드 구현
+> 책을 참고해 java로 구현한 DFS
+
+```java
+private void dfsTraversal(Object value, Set<Vertex> visited) {
+    Vertex<Object> currentVertex = new Vertex<>(value);
+    visited.add(currentVertex);
+
+    if (getNeighbors(value) == null || getNeighbors(value).isEmpty()) {
+        return;
+    }
+
+    getNeighbors(value).forEach(vertex -> {
+        if (!visited.contains(vertex)) {
+            visited.add(vertex);
+            dfsTraversal(vertex.value, visited);
+        }
+    });
+}
+
+// 1. 그래프 내 임의의 정점에서 시작한다.
+// 2. 현재 정점을 해시 테이블에 추가해 방문했던 정점임을 표시한다.
+// 3. 현재 정점의 인접 정점을 순회한다.
+// 4. 방문했던 인접 정점이면 무시한다.
+// 5. 방문하지 않았던 인접 정점이면 그 정점에 대해 재귀적으로 깊이 우선 탐색을 수행한다.
+public List<Vertex> depthFirstTraversal(Object value) {
+    Set<Vertex> visited = new LinkedHashSet<>();
+    dfsTraversal(value, visited);
+    return new ArrayList<>(visited);
+}
+```
 
 ## 18.6 너비 우선 탐색(Breadth-First Search, BFS)
 
@@ -156,7 +185,38 @@ public class Graph {
 
 > 그래프를 탐색하는 동안 시작 정점 가까이 있고 싶으면 너비 우선 탐색이 좋고, 빨리 멀어져야 한다면 깊이 우선 탐색이 이상적이다.
 
-> TODO: 코드 구현
+> 책을 참고해 java로 구현한 BFS
+
+```java
+// 1. 그래프 내 아무 정점에서나 시작한다. 이 정점을 시작 정점이라 부른다.
+// 2. 시작 정점을 해시 테이블에 추가해 방문했다고 표시한다.
+// 3. 시작 정점을 큐에 추가한다.
+// 4. 큐가 빌 때까지 실행하는 루프를 시작한다.
+// 5. 루프 안에서 큐의 첫 번째 정점을 삭제한다. 이 정점을 "현재 정점"이라 부른다.
+// 6. 현재 정점의 인접 정점을 순회한다.
+// 7. 이미 방문한 인접 정점이면 무시한다.
+// 8. 아직 방문하지 않은 인접 정점이면 해시 테이블에 추가해 방문했다고 표시한 후 큐에 추가한다.
+// 9. 큐가 빌 떄까지 루프를 반복한다.
+public List<Vertex> breadthFirstTraversal(Object value) {
+    Set<Vertex> visited = new LinkedHashSet<>();
+    Queue<Vertex> queue = new LinkedList<>();
+
+    Vertex<Object> startVertex = new Vertex<>(value);
+    visited.add(startVertex);
+    queue.add(startVertex);
+
+    while (!queue.isEmpty()) {
+        Vertex currentVertex = queue.poll();
+        getNeighbors(currentVertex.value).forEach(vertex -> {
+            if (!visited.contains(vertex)) {
+                visited.add(vertex);
+                queue.add(vertex);
+            }
+        });
+    }
+    return new ArrayList<>(visited);
+}
+```
 
 ## 18.7 그래프 탐색의 효율성
 
