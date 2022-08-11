@@ -50,7 +50,7 @@ public class SampleResource implements AutoCloseable {
   }
 
   public static void main(String[] args) {
-    // try-with-reousrces
+    // try-with-resources
     try(SampleResource resource = new SampleResource()) {
       resource.hello();
     }
