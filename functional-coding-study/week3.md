@@ -202,6 +202,51 @@ function black_friday_promotion_safe(cart) {
 
 # 챕터8. 계층형 설계 1
 
+- 계층형 설계란 무엇인가?
+  - 계층형 설계는 소프트웨어를 계층으로 구성하는 기술이다. 각 계층에 있는 함수는 바로 아래 계층에 있는 함수를 이용해 정의한다.
+- 직접 구현 패턴이란?
+  - 함수가 모두 비슷한 계층에 있다면 직접 구현했다고 한다. 서로 다른 추상화 단계에 있는 기능을 사용하면 직접 구현 패턴이 아니다.
+  - 코드가 서로 다른 구체화 단계에 있다면 읽기 어렵다.
+  - 함수가 더 구체적인 내용을 다루지 않도록 함수를 일반적인 함수로 빼낸다. 일반적인 함수는 보통 구체적인 내용을 하나만 다루기 때문에 테스트 하기 쉬우며 구체적인 함수보다 더 많은 곳에서 쓸 수 있다.
+
+```javascript
+function freeTieClip(cart) {
+  let hasTie = false;
+  let hasTieClip = false;
+
+  // for loop는 언어에서 제공하는 기본 기능. 저수준이다.
+  for (let i = 0; i < cart.length; i++) {
+    const item = cart[i]; // array에 index로 접근하는 것도 언어에서 제공하는 것. 저수준.
+    if (item.name === "tie") hasTie = true;
+    if (item.name === "tie clip") hasTieClip = true;
+  }
+
+  if (hasTie && !hasTieClip) {
+    // make_item과 add_item은 직접 만든 함수. 언어 기본 제공보다 높은 수준.
+    const tieClip = make_item("tie clip", 0);
+    return add_item(cart, tieClip);
+  }
+  return cart;
+}
+```
+
+위의 코드는 서로 다른 추상화 단계에 있는 기능을 사용하고 있다.
+
+```javascript
+function freeTieClip(cart) {
+  let hasTie = isInCart(cart, "tie");
+  let hasTieClip = isInCart(cart, "tie clip");
+
+  if (hasTie && !hasTieClip) {
+    const tieClip = make_item("tie clip", 0);
+    return add_item(cart, tieClip);
+  }
+  return cart;
+}
+```
+
+개선한 코드는 모두 직접 만든 함수를 사용하고 있다. 비슷한 추상화 단계를 사용하고 있으므로 직접 구현했다고 할 수 있다.
+
 ---
 
 > 함수형 코딩은 함수를 엄청 쪼개서 아주 작은 단위로 나누고, 믿을 수 있는 함수를 조합해 나간다.
