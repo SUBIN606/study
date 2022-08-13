@@ -114,6 +114,94 @@ function objectSet(object, key, value) {
   - 데이터를 불변형으로 유지할 수 있는 원칙이다.
   - 복사본을 만들고 원본 대신 복사본을 변경하는 것을 말한다.
 
+# 챕터7. 신뢰할 수 없는 코드를 쓰면서 불변성 지키기
+
+- 카피-온-라이트와 방어적 복사의 차이점?
+  - 카피-온-라이트는 데이터를 바꾸기 전에 복사한다. 무엇이 바뀌는지 알기 때문에 무엇을 복사해야 할지 예상할 수 있다. 그래서 안전지대라 불리는 불변성이 지켜지는 코드다. 만약 분석하기 힘든 레거시 코드와 소통해야 할 때는 카피-온-라이트 방식을 쓸 수 없다. 그래서 데이터가 바뀌는 것을 완벽히 막아주는 방어적 복사를 사용해야 한다.
+  - 신뢰할 수 없는 코드와 데이터를 주고받아야 할 때 방어적 복사를 사용한다.
+  - **들어오고 나가는 데이터의 복사본을 만드는 것이 방어적 복사가 동작하는 방식이다.**
+  - 카피-온-라이트 방식은 얕은 복사를 하지만 방어적 복사는 깊은 복사를 한다.
+- 방어적 복사는 언제 사용하는가?
+  - 안전지대의 불변성을 유지하고, 바뀔 수도 있는 데이터가 안전지대로 들어오지 못하도록 막는다.
+
+### 방어적 복사 구현하기
+
+원본 코드
+
+```javascript
+function add_item_to_cart(name, price) {
+  const item = make_cart_item(name, price);
+  shopping_cart = add_item(shopping_cart, item);
+
+  const total = calc_total(shopping_cart);
+  set_cart_total(total);
+  update_shipping_icons(shopping_cart);
+  update_tax_dom(total);
+
+  // 이 함수는 신뢰할 수 없는 레거시 코드다. 데이터를 어떻게 바꾸는지 알 수 없다.
+  black_friday_promotion(shopping_cart);
+}
+```
+
+데이터를 전달하기 전, 후에 복사한다.
+
+```javascript
+function add_item_to_cart(name, price) {
+  // safty zone
+  const item = make_cart_item(name, price);
+  shopping_cart = add_item(shopping_cart, item);
+
+  const total = calc_total(shopping_cart);
+  set_cart_total(total);
+  update_shipping_icons(shopping_cart);
+  update_tax_dom(total);
+  // safty zone
+
+  // 데이터 전달 전 복사
+  let cart_copy = deepCopy(shopping_cart);
+  black_friday_promotion(cart_copy);
+
+  // 전달받은 데이터를 복사
+  shopping_cart = deepCopy(cart_copy);
+}
+```
+
+- 방어적 복사란? 어떤 규칙을 지켜야 하나?
+  - 데이터를 변경할 수도 있는 코드와 불변성 코드 사이에 데이터를 주고받기 위한 원칙이다.
+  - 데이터가 안전한 코드에서 나갈 때와, 데이터가 안전한 코드로 들어올 때 복사하는 원칙을 지켜야 한다.
+
+### 신뢰할 수 없는 코드 감싸기
+
+방어적 복사 코드를 분리해 새로운 함수로 만든다.
+
+```javascript
+function add_item_to_cart(name, price) {
+  // safty zone
+  const item = make_cart_item(name, price);
+  shopping_cart = add_item(shopping_cart, item);
+
+  const total = calc_total(shopping_cart);
+  set_cart_total(total);
+  update_shipping_icons(shopping_cart);
+  update_tax_dom(total);
+  // safty zone
+
+  shopping_cart = black_friday_promotion_safe(shopping_cart);
+}
+
+function black_friday_promotion_safe(cart) {
+  let cart_copy = deepCopy(shopping_cart);
+  black_friday_promotion(cart_copy);
+  return deepCopy(cart_copy);
+}
+```
+
+- 깊은 복사란?
+  - 깊은 복사는 원본과 어떤 데이터 구조도 공유하지 않는다. 중첩된 모든 객체나 배열을 복사한다.
+  - 얕은 복사는 바뀌지 않은 값이라면 원본과 복사본이 데이터를 공유한다.
+
+# 챕터8. 계층형 설계 1
+
 ---
 
 > 함수형 코딩은 함수를 엄청 쪼개서 아주 작은 단위로 나누고, 믿을 수 있는 함수를 조합해 나간다.
