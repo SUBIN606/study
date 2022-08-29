@@ -120,3 +120,52 @@ function reduce(array, init, f) {
   - 함수형 도구는 여러 단계의 체인으로 조합할 수 있으며 함수형 도구를 체인으로 조합하면 복잡한 계산을 작고 명확한 단계로 표현할 수 있다.
 - 스트림 결합(stream fusion)이란?
   - map, fileter, reduce 체인을 최적화 하는 것
+
+# 14장. 중첩된 데이터에 함수형 도구 사용하기
+
+조회하고 변경하고 설정하는 것을 `update()`메소드로 교체한다.
+
+```javascript
+function halveField(item, field) {
+  var value = item[field]; // 조회
+  var newValue = value / 2; // 바꾸기
+  var newItem = objectSet(item, filed, newValue); // 설정
+  return newItem;
+}
+```
+
+조회하고 바꾸고 설정하는 것을 찾은 뒤, 바꾸는 동작을 콜백으로 전달해서 `update()`로 교체한다.
+
+```javascript
+function halveField(item, field) {
+  return udpate(item, field, function (value) {
+    return value / 2; // 바꾸는 동작을 콜백으로 전달
+  });
+}
+
+// update()는 객체를 다루는 함수형 도구다.
+function update(object, key, modify) {
+  var value = object[key]; // 조회
+  var newValue = modify(value); // 바꾸기
+  var newObject = objectSet(object, key, newValue); // 설정
+  return newObject; // 바꾼 객체를 리턴(카피-온-라이트)
+}
+```
+
+중첩된 객체를 변경하려면 update()메소드도 중첩해야 한다. 하지만 중첩의 깊이를 매번 알아야하고, 중첩의 깊이만큼 key를 인자로 받아야 한다. 이를 해결하기 위해 `keys`라는 배열로 키를 받는 `updateX()`메소드를 만들 수 있다.
+
+```javascript
+function updateX(object, keys, modify) {
+  if (keys.length === 0) {
+    //기저조건
+    return modify(object);
+  }
+  var key1 = keys[0];
+  var restOfKeys = drop_first(keys);
+  return update(object, key1, function (value1) {
+    return updateX(value1, restOfKeys, modify); //재귀 호출
+  });
+}
+```
+
+updateX는 일반적으로 `nestedUpdate()`라고 부른다.
