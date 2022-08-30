@@ -1,3 +1,0 @@
-# Greedy
-
-test
