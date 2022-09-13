@@ -48,11 +48,11 @@ public class 서로소_집합 {
     * find 연산은 특정한 원소가 속한 집합이 어떤 집합인지 알려주는 연산이다.
     * */
     private static int findParent(int[] parent, int x) {
-        if (x == parent[x]) {
-            return x;
+        if (x != parent[x]) {
+            // 루트 노드를 찾을 때까지 재귀적으로 호출
+            parent[x] = findParent(parent, parent[x]);
         }
-        // 루트 노드를 찾을 때까지 재귀적으로 호출
-        return parent[x] = findParent(parent, parent[x]);
+        return parent[x];
     }
 
     /*
