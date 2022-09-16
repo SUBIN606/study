@@ -9,28 +9,26 @@
 ### 5.2 선택 정렬 실제로 해보기
 
 - 선택 정렬을 코드로 구현해보라
-  ```java
-  int[] selectionSort(int[] arr) {
 
-  	for(int i = 0; i < arr.length - 1; i++) {
-  		int minNumIndex = i;
+```java
+int[] selectionSort(int[] arr) {
+  for(int i = 0; i < arr.length - 1; i++) {
+    int minNumIndex = i;
+    for(int j = i + 1; j < arr.length; j++) {
+        if(arr[j] < arr[minNumIndex]) {
+            minNumIndex = j;
+        }
+    }
 
-  		for(int j = i + 1; j < arr.length; j++) {
-  				if(arr[j] < arr[minNumIndex]) {
-  						minNumIndex = j;
-  				}
-  		}
-
-  		if(i != minNumIndex) {
-  			int temp = arr[i];
-  			arr[i] = arr[minNumIndex];
-  			arr[minNumIndex] = temp;
-  		}
-  	}
-
-  	return arr;
+    if(i != minNumIndex) {
+      int temp = arr[i];
+      arr[i] = arr[minNumIndex];
+      arr[minNumIndex] = temp;
+    }
   }
-  ```
+  return arr;
+}
+```
 
 ### 5.3 선택 정렬의 효율성
 
