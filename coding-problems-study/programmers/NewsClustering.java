@@ -85,5 +85,5 @@ public class NewsClustering {
         }
         return (int) Math.abs((double) intersection / union * 65536);
     }
-    
+
 }
