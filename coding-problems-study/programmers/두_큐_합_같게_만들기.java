@@ -1,7 +1,9 @@
+package programmers;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
-class QueSameTotal {
+class 두_큐_합_같게_만들기 {
 
     private Queue<Integer> makeQueue(int[] arr) {
         Queue<Integer> queue = new LinkedList<>();

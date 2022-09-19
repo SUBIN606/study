@@ -1,3 +1,5 @@
+package programmers;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -5,7 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class CandidateKey {
+public class 후보키 {
 
     /*
      * 후보키는 유일성과 최소성을 만족한다.

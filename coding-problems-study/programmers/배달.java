@@ -1,8 +1,10 @@
+package programmers;
+
 import java.util.Arrays;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public class Delivery {
+public class 배달 {
 
     static final int INF = (int) 1e9;
 

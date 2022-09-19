@@ -1,3 +1,5 @@
+package programmers;
+
 public class 타겟_넘버 {
 
     public static void main(String[] args) {

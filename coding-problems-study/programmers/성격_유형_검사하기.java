@@ -1,6 +1,8 @@
+package programmers;
+
 import java.util.HashMap;
 
-public class PersonalityTest {
+public class 성격_유형_검사하기 {
 
     /*
         성격은 4개 지표로 구분한다.

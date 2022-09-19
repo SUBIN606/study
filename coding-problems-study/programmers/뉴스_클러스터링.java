@@ -1,9 +1,11 @@
+package programmers;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NewsClustering {
+public class 뉴스_클러스터링 {
 
     /*
      * str1, str2 두 문자열이 주어진다.
