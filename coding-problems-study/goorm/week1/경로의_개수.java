@@ -20,15 +20,16 @@ public class 경로의_개수 {
             bridges[i] = Integer.parseInt(tokenizer.nextToken());
         }
 
-        int answer = solution(bridges);
+        long answer = solution(bridges);
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         bw.write(String.valueOf(answer));
         bw.flush();
         bw.close();
     }
 
-    public static int solution(int[] bridges) {
+    public static long solution(int[] bridges) {
         return Arrays.stream(bridges)
-                .reduce(1, (cur, acc) -> cur * acc);
+                .mapToLong(Long::valueOf)
+                .reduce(1L, (cur, acc) -> cur * acc);
     }
 }
