@@ -54,6 +54,7 @@ public class 두_배열의_원소_교체 {
         b[i] = temp;
 
         recursive(i + 1, a, b);
+
     }
 
 }

@@ -43,7 +43,6 @@ public class 음료수_얼려_먹기 {
             return false;
         }
         if (!visited[x][y] && tray[x][y] == 0) {
-            System.out.println("x = " + x + " y = " + y);
             visited[x][y] = true;
             dfs(tray, cols, rows, x - 1, y, visited);
             dfs(tray, cols, rows, x, y - 1, visited);

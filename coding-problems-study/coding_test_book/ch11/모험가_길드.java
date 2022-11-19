@@ -1,9 +1,7 @@
 package coding_test_book.ch11;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class 모험가_길드 {
 
