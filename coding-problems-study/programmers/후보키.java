@@ -28,13 +28,13 @@ public class 후보키 {
         }
 
         if (end == 0) {
-            String comb = "";
+            StringBuilder comb = new StringBuilder();
             for (int i = 0; i < visited.length; i++) {
                 if (visited[i]) {
-                    comb += i;
+                    comb.append(i);
                 }
             }
-            combinations.add(comb);
+            combinations.add(comb.toString());
             return;
         }
 
