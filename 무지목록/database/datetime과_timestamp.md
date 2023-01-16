@@ -61,6 +61,7 @@ SHOW VARIABLES LIKE '%time_zone%';
 ## 결론
 MySQL 5.6 버전부터는 `DATETIME` 타입과 `TIMESTAMP` 타입 사이에 커넥션의 `time_zone` 시스템 변수의 타임존으로 저장할지, UTC로 저장할지의 차이만 남고 모든 것이 같다.
 
+둘 중에 어떤 타입을 해야 할지 결정하는 것 보다 타임존을 통일시키는 것이 더 중요할 것 같다.
 ---
 참고
 - Real MySQL vol2
