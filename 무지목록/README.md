@@ -17,9 +17,14 @@
 - [DATETIME과 TIMESTAMP](./datetime%EA%B3%BC_timestamp.md)
 - 락
 
+# Network
+- TCP 커넥션 과정(3way, 4way handshaking)
+- HTTPS
+- CORS
+
 # 그 외
 - salt를 사용하는 이유
 - Virtural DOM
-- TCP 커넥션 과정(3way, 4way handshaking)
 - scale up, scale out
 - 로드밸런싱
+- 공개키와 비밀키
