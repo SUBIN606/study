@@ -21,7 +21,7 @@
 ## 트랜잭션 전파(propagation)
 트랜잭션을 시작하거나 기존 트랜잭션에 참여하는 방법을 결정하는 속성이다. 트랜잭션 경계의 시작 지점에서 트랜잭션 전파 속성을 참조해서 해당 범위의 트랜잭션을 어떤 식으로 진행시킬지 결정할 수 있다.
 
-트랜잭션 전파 속성은(`org.springframework.transaction.annotation.Propagation`)[https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/annotation/Propagation.html]에 정의된 것을 사용한다.
+트랜잭션 전파 속성은[`org.springframework.transaction.annotation.Propagation`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/annotation/Propagation.html)에 정의된 것을 사용한다.
 
 - REQUIRED: 미리 시작된 트랜잭션이 있으면 참여, 없으면 새 트랜잭션을 만듦
 - SUPPORTS: 미리 시작된 트랜잭션이 있으면 참여, 없으면 트랜잭션없이 진행
