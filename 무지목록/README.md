@@ -21,6 +21,7 @@
 - TCP 커넥션 과정(3way, 4way handshaking)
 - HTTPS
 - CORS
+- RESTful API
 
 # 그 외
 - salt를 사용하는 이유
