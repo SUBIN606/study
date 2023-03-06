@@ -11,7 +11,7 @@
 스트림이란 '데이터 처리 연산을 지원하도록 소스에서 추출된 연속된 요소'로 정의할 수 있다.
 
 ## 스트림과 컬렉션
-컬렉션과 스틤 모두 연속된 요소 형식의 값을 저장하는 자료구조의 인터페이스를 제공한다.
+컬렉션과 스트림 모두 연속된 요소 형식의 값을 저장하는 자료구조의 인터페이스를 제공한다.
 
 데이터를 언제 계산하느냐가 컬렉션과 스트림의 가장 큰 차이다. 컬렉션은 현재 자료구조가 포함하는 모든 값을 메모리에 저장하는 자료구조다. 즉, 컬렉션의 모든 요소는 컬렉션에 추가하기 전에 계산되어야 한다.
 
@@ -101,6 +101,6 @@ java -Djava.util.concurrent.ForkJoinPool.common.parallelism=7
 
 
 ---
--모던 자바 인 액션
--[Parallel streams in Java](https://blogs.oracle.com/javamagazine/post/java-parallel-streams-performance-benchmark)
--[Java Tutorial: Parallelism](https://docs.oracle.com/javase/tutorial/collections/streams/parallelism.html)
+- 모던 자바 인 액션
+- [Parallel streams in Java](https://blogs.oracle.com/javamagazine/post/java-parallel-streams-performance-benchmark)
+- [Java Tutorial: Parallelism](https://docs.oracle.com/javase/tutorial/collections/streams/parallelism.html)
